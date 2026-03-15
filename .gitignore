@@ -1,2 +1,13 @@
 .DS_Store
 content/
+
+# Added by github-skill-publisher
+*.egg-info/
+.env
+dist/
+*.pyc
+node_modules/
+build/
+venv/
+__pycache__/
+.venv/
