@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{PAGE_TITLE}}</title>
+  <style>
+    :root {
+      --bg: #f6f1e8;
+      --bg-accent: radial-gradient(circle at top, rgba(212, 166, 92, 0.18), transparent 36%), linear-gradient(180deg, #fbf7f1 0%, #f6f1e8 100%);
+      --panel: rgba(255, 252, 247, 0.9);
+      --panel-strong: #fffdf8;
+      --text: #2d241c;
+      --muted: #6b5a49;
+      --line: rgba(109, 80, 45, 0.14);
+      --brand: #a55d2a;
+      --brand-deep: #7b3f16;
+      --good: #2f6b4f;
+      --warn: #9a6626;
+      --bad: #8a3b32;
+      --shadow: 0 22px 50px rgba(78, 53, 30, 0.08);
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--bg-accent);
+      font-family: "PingFang SC", "Hiragino Sans GB", "Noto Serif CJK SC", "Source Han Serif SC", serif;
+      line-height: 1.8;
+    }
+
+    a {
+      color: var(--brand-deep);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .shell {
+      width: min(960px, calc(100vw - 32px));
+      margin: 32px auto 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .hero,
+    .article-card {
+      background: var(--panel);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      grid-column: 1 / -1;
+      border-radius: var(--radius-xl);
+      padding: 28px 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -40px -80px auto;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(165, 93, 42, 0.18), transparent 68%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(165, 93, 42, 0.08);
+      color: var(--brand-deep);
+      font-size: 13px;
+      letter-spacing: 0.04em;
+    }
+
+    h1 {
+      margin: 16px 0 10px;
+      font-size: clamp(30px, 5vw, 52px);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+    }
+
+    .subtitle {
+      margin: 0;
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .meta-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .meta-pill {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(109, 80, 45, 0.1);
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .article-card {
+      border-radius: var(--radius-xl);
+      padding: 24px 24px 22px;
+    }
+
+    .article-card.soft-ad {
+      border-left: 6px solid var(--warn);
+      background: linear-gradient(180deg, rgba(255, 246, 231, 0.96), rgba(255, 252, 247, 0.96));
+    }
+
+    .article-card.unavailable {
+      border-left: 6px solid var(--bad);
+      background: linear-gradient(180deg, rgba(255, 239, 236, 0.96), rgba(255, 252, 247, 0.96));
+    }
+
+    .article-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .article-index {
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--brand);
+      font-weight: 700;
+    }
+
+    .article-title {
+      margin: 8px 0 0;
+      font-size: clamp(24px, 3vw, 32px);
+      line-height: 1.25;
+    }
+
+    .rating {
+      flex: 0 0 auto;
+      padding: 10px 14px;
+      border-radius: 14px;
+      background: rgba(165, 93, 42, 0.08);
+      color: var(--brand-deep);
+      font-size: 14px;
+    }
+
+    .section-label {
+      margin: 24px 0 12px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--brand-deep);
+    }
+
+    .lead,
+    .insight {
+      margin: 0;
+      font-size: 19px;
+      line-height: 1.95;
+    }
+
+    ul.story-list {
+      margin: 12px 0 0;
+      padding-left: 28px;
+    }
+
+    ul.story-list li + li {
+      margin-top: 24px;
+    }
+
+    ul.story-list li::marker {
+      font-size: 1.1em;
+    }
+
+    .detail-lead {
+      display: block;
+      font-size: 21px;
+      line-height: 1.75;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #1f1914;
+    }
+
+    .detail-body {
+      display: block;
+      font-size: 19px;
+      line-height: 2;
+      color: var(--text);
+      max-width: 42em;
+    }
+
+    .insight-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-top: 8px;
+    }
+
+    .insight-text {
+      margin: 0;
+      font-size: 19px;
+      line-height: 1.95;
+    }
+
+    .insight-quote {
+      margin: 4px 0;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(165, 93, 42, 0.08);
+      border-left: 3px solid rgba(165, 93, 42, 0.45);
+      font-size: 19px;
+      line-height: 1.9;
+      font-weight: 600;
+      letter-spacing: 0;
+      color: #231b14;
+    }
+
+    .insight-quote strong {
+      font-weight: 800;
+    }
+
+    .insight-note {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.9;
+      color: var(--muted);
+    }
+
+    .notice {
+      margin: 0;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.78);
+      font-weight: 600;
+    }
+
+    .footer {
+      width: min(1200px, calc(100vw - 32px));
+      margin: 0 auto 40px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 14px;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        line-height: 1.7;
+      }
+
+      .shell {
+        width: min(100vw - 20px, 1200px);
+        margin-top: 12px;
+        gap: 16px;
+      }
+
+      .hero,
+      .article-card {
+        border-radius: 18px;
+      }
+
+      .hero,
+      .article-card {
+        padding: 18px;
+      }
+
+      .lead,
+      .insight,
+      .detail-body,
+      .insight-text {
+        font-size: 17px;
+      }
+
+      .detail-lead {
+        font-size: 19px;
+      }
+
+      .insight-quote {
+        font-size: 17px;
+        line-height: 1.8;
+        padding: 12px 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="hero">
+      <div class="eyebrow">{{EYEBROW}}</div>
+      <h1>{{PAGE_HEADING}}</h1>
+      <p class="subtitle">{{PAGE_SUBTITLE}}</p>
+      <div class="meta-grid">
+        {{META_PILLS}}
+      </div>
+    </header>
+
+    <main class="content">
+      {{ARTICLE_CARDS}}
+    </main>
+  </div>
+
+  <footer class="footer">{{FOOTER_TEXT}}</footer>
+</body>
+</html>
