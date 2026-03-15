@@ -1,9 +1,9 @@
 ---
-name: json-article-summary-html-skill
-description: 根据包含 title、url、content 的 JSON 文章数组，按顺序用简体中文做批量总结，输出高可读性的单文件 HTML 报告到当前工作目录的 content/fetch_content/ 下并在默认浏览器中打开。适用于“批量总结文章”“批量总结 JSON”“总结多篇文章并生成网页”“把文章集合整理成网页总结”等请求，以及文章很多、正文很长、需要分批处理、需要识别软文或无法总结内容的场景。
+name: batch-article-summary-skill
+description: 根据包含 title、url、content 的文章集合，按顺序用简体中文做批量总结，输出高可读性的单文件 HTML 报告到当前工作目录的 content/fetch_content/ 下并在默认浏览器中打开。适用于“批量总结文章”“总结多篇文章并生成网页”“把文章集合整理成网页总结”等请求，以及文章很多、正文很长、需要分批处理、需要识别软文或无法总结内容的场景。
 ---
 
-# JSON Article Summary HTML Skill
+# Batch Article Summary Skill
 
 当用户要你总结一份很大的 JSON 文章集合，并且要求最终结果是可直接打开的网页时，使用这个 Skill。
 

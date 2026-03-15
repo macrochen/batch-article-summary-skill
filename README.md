@@ -1,6 +1,6 @@
-# json-article-summary-html-skill
+# batch-article-summary-skill
 
-一个用于批量总结 JSON 文章集合并输出高可读性 HTML 网页的本地 Skill。
+一个用于批量总结文章集合并输出高可读性 HTML 网页的本地 Skill。
 
 ## 功能
 
